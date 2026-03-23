@@ -1,0 +1,58 @@
+/* Project: Secure Password Vault (Mini Version)
+   Purpose: Managing user credentials using basic encryption logic.
+   Logic: Using Structs to store and "obfuscate" sensitive data.
+   Author: Ahmed Thamer 
+   Language: C++
+*/
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+// 1. Defining the Credential Structure | تعريف هيكل بيانات الاعتماد
+struct Credential {
+    string platformName;   // e.g., GitHub, Facebook, LinkedIn | اسم المنصة
+    string username;       // User login name | اسم المستخدم
+    string encryptedPass;  // The password after "encryption" | كلمة المرور بعد التشفير
+};
+
+// 2. Simple Encryption Logic (Caesar Cipher style) | منطق تشفير بسيط (تحريك الحروف)
+string encrypt(string pass) {
+    for(int i = 0; i < pass.length(); i++) {
+        pass[i] = pass[i] + 2; // Shift characters by 2 | زحف الحروف بمقدار 2
+    }
+    return pass;
+}
+
+int main() {
+    // 3. Creating an instance | إنشاء نسخة
+    Credential myAccount;
+
+    // 4. Assigning Data | إسناد البيانات
+    myAccount.platformName = "LinkedIn";
+    myAccount.username = "ahmed_thamer";
+    
+    string rawPassword = "Password123"; 
+    myAccount.encryptedPass = encrypt(rawPassword); // Secure it! | تشفيرها فوراً
+
+    // 5. Displaying the Result | عرض النتيجة
+    cout << "--- Secure Credential Vault ---" << endl;
+    cout << "Platform: " << myAccount.platformName << endl;
+    cout << "Username: " << myAccount.username << endl;
+    
+    cout << "-------------------------------" << endl;
+    cout << "Stored Password (Encrypted): " << myAccount.encryptedPass << endl;
+    cout << "NOTICE: Raw password is never stored in plain text." << endl;
+
+    return 0;
+}
+
+/*output:
+--- Secure Credential Vault ---
+Platform: LinkedIn
+Username: ahmed_thamer
+-------------------------------
+Stored Password (Encrypted): Rcuuyqtf345
+NOTICE: Raw password is never stored in plain text.
+*/
